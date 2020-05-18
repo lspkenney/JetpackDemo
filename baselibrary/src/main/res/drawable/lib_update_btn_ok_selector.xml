@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_pressed="true">
+        <shape android:shape="rectangle" android:innerRadius="4dp">
+            <solid android:color="@color/update_btn_pressed"></solid>
+        </shape>
+    </item>
+    <item android:state_pressed="false">
+        <shape android:shape="rectangle" android:innerRadius="4dp">
+            <solid android:color="@color/update_btn_normal"></solid>
+        </shape>
+    </item>
+</selector>
