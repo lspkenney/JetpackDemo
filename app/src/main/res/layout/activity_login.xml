@@ -59,6 +59,5 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@id/etPwd"
             />
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

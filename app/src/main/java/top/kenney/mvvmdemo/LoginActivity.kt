@@ -3,6 +3,7 @@ package top.kenney.mvvmdemo
 import android.Manifest
 import android.content.Intent
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.lifecycle.Observer
 import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.toast

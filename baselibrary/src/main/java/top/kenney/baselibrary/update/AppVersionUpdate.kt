@@ -4,9 +4,10 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.os.Environment
+import androidx.fragment.app.FragmentActivity
+import com.alibaba.fastjson.JSON
+import com.alibaba.fastjson.TypeReference
 import com.daimajia.numberprogressbar.NumberProgressBar
-import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
 import okhttp3.*
 import org.jetbrains.anko.toast
 import top.kenney.baselibrary.BaseApplication
@@ -25,7 +26,7 @@ import kotlin.system.exitProcess
 /**
  * app版本更新
  */
-class AppVersionUpdate(private val mActivity:BaseActivity) {
+class AppVersionUpdate(private val mActivity:BaseActivity, private val showNewestMessage:Boolean = false) {
     private lateinit var mUpdateVersionData:UpdateVersion
     private lateinit var mNumberProgressBar:NumberProgressBar
     private var mUpdateDialogFragment:UpdateDialogFragment? = null
@@ -60,18 +61,27 @@ class AppVersionUpdate(private val mActivity:BaseActivity) {
                 mActivity.runOnUiThread {
                     try {
                         mActivity.hideLoad()
-                        val gson = Gson()
-                        val base = gson.fromJson<BaseResponse<UpdateVersion>>(body, object :TypeToken<BaseResponse<UpdateVersion>>(){}.type)
+                        val base = JSON.parseObject(body, object :TypeReference<BaseResponse<UpdateVersion>>(){})
+                        /*val gson = Gson()
+                        val base = gson.fromJson<BaseResponse<UpdateVersion>>(body, object :TypeToken<BaseResponse<UpdateVersion>>(){}.type)*/
                         if(null != base && BaseResponse.SUCCESS == base.code){
                             //比对本地版本号
-                            mUpdateVersionData = base.data
+                            if(base.data == null){
+                                mUpdateVersionData = UpdateVersion(mActivity.application.getVersionName(), "", "")
+                            }else{
+                                mUpdateVersionData = base.data
+                            }
                             compareVersionWithLocal()
                         }else{
-                            mActivity.toast("检查版本更新失败：${base.msg}")
+                            mActivity.runOnUiThread {
+                                mActivity.toast("检查版本更新失败：${base.msg}")
+                            }
                         }
                     }catch (e:Exception){
                         e.printStackTrace()
-                        mActivity.toast("检查版本更新失败：${e.message}")
+                        mActivity.runOnUiThread {
+                            mActivity.toast("检查版本更新失败：${e.message}")
+                        }
                     }
                 }
             }
@@ -84,6 +94,12 @@ class AppVersionUpdate(private val mActivity:BaseActivity) {
     private fun compareVersionWithLocal() {
         if(compareVersion(mActivity.application.getVersionName(), mUpdateVersionData.verNo) < 0){
             showUpdateDialog()
+        }else{
+            if(showNewestMessage){
+                mActivity.runOnUiThread {
+                    mActivity.toast("当前已是最新版本")
+                }
+            }
         }
     }
 

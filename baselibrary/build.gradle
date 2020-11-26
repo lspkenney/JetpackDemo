@@ -8,7 +8,7 @@ android {
     buildToolsVersion "29.0.3"
 
     defaultConfig {
-        minSdkVersion 16
+        minSdkVersion 19
         targetSdkVersion 29
         versionCode 1
         versionName "1.0"
@@ -87,21 +87,26 @@ dependencies {
     // Saved state module for ViewModel
     api "androidx.lifecycle:lifecycle-viewmodel-savedstate:$lifecycle_version"
     // Annotation processor
-    kapt "androidx.lifecycle:lifecycle-compiler:$lifecycle_version"
+    //kapt "androidx.lifecycle:lifecycle-compiler:$lifecycle_version"
     // alternately - if using Java8, use the following instead of lifecycle-compiler
     api "androidx.lifecycle:lifecycle-common-java8:$lifecycle_version"
 
     //room
     api "androidx.room:room-runtime:$room_version"
-    kapt "androidx.room:room-compiler:$room_version"
+    //kapt "androidx.room:room-compiler:$room_version"
     api "androidx.room:room-ktx:$room_version"
 
     //xpopup
     api "com.lxj:xpopup:$xpopup_version"
 
     //gson
-    api 'com.google.code.gson:gson:2.8.6'
-    api "com.squareup.retrofit2:converter-gson:$retrofit2_version"
+    //api 'com.google.code.gson:gson:2.8.6'
+    //api "com.squareup.retrofit2:converter-gson:$retrofit2_version"
+
+    //fastjson
+    api "com.alibaba:fastjson:$fastjson_version"
+    api "org.ligboy.retrofit2:converter-fastjson-android:$fastjson_converter_version"
+    api "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
 
     //retrofit2 + okhttp3
     api "com.squareup.retrofit2:retrofit:$retrofit2_version"
@@ -124,7 +129,36 @@ dependencies {
     //debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.3'
     debugApi 'com.squareup.leakcanary:leakcanary-android:2.3'
     //live-event-bus
-    api 'com.jeremyliao:live-event-bus-x:1.6.1'
+    api 'com.jeremyliao:live-event-bus-x:1.7.2'
     //easypermissions
     api 'pub.devrel:easypermissions:3.0.0'
+
+    //Asynchronous socket, http(s) (client+server) and websocket library for android. Based on nio, not threads
+    api 'com.koushikdutta.async:androidasync:3.0.9'
+
+    //tablayout
+    api 'com.github.angcyo.DslTablayout:TabLayout:1.5.4'
+    api 'com.github.angcyo.DslTablayout:ViewPager1Delegate:1.5.4'
+    //compile 'com.github.lygttpod:SuperTextView:VERSION_CODE'
+    api 'com.github.lygttpod:SuperTextView:2.4.2'
+
+    //调用摄像头扫描二维码
+    api 'com.king.zxing:zxing-lite:1.1.9-androidx'
+
+    //圆形图片
+    api 'de.hdodenhof:circleimageview:3.1.0'
+    //评分插件
+    api 'me.zhanghai.android.materialratingbar:library:1.4.0'
+    //仿微信UI，实现了拍照、图片选择（单选/多选）、裁剪等功能
+    api 'com.cysion:ImagePicker:1.2.0.x'
+    //Glide
+    api "com.github.bumptech.glide:glide:$glide_version"
+    //图片压缩
+    api 'top.zibin:Luban:1.1.8'
+
+    //bugly
+    api 'com.tencent.bugly:crashreport:latest.release'
+
+    //kotlin 加载图片
+    api 'io.coil-kt:coil:0.13.0'
 }

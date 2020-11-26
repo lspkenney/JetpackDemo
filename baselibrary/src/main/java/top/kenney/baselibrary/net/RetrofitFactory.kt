@@ -4,7 +4,7 @@ import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.converter.fastjson.FastJsonConverterFactory
 import top.kenney.baselibrary.BaseApplication
 import java.util.concurrent.TimeUnit
 
@@ -22,28 +22,28 @@ class RetrofitFactory private constructor() {
     init {
 
         interceptor = Interceptor { chain ->
-            /*val isLoginUrl = chain.request().url().url().toString().contains("account/login")
+            val isLoginUrl = chain.request().url().url().toString().contains("auth/login")
             if(!isLoginUrl){
-                val token = AppPrefsUtils.getString(BaseConstant.KEY_SP_TOKEN)
-                Log.i("OkHttp", "token = $token")
+                //val token = AppPrefsUtils.getString(BaseConstant.KEY_SP_TOKEN)
+                //Log.i("OkHttp", "token = $token")
                 val request = chain.request()
                     .newBuilder()
-                    .addHeader("Authorization", token)
-                    .addHeader("DeviceType", "PDA")
+                    .addHeader("Authorization", BaseApplication.TOKEN)
+                    //.addHeader("DeviceType", "PDA")
                     .build()
                 chain.proceed(request)
-            }else{*/
-                val request = chain.request()
+            }else{
+                /*val request = chain.request()
                     .newBuilder()
                     .addHeader("DeviceType", "PDA")
-                    .build()
-                chain.proceed(request)
-            //}
+                    .build()*/
+                chain.proceed(chain.request())
+            }
 
         }
         retrofit = Retrofit.Builder()
                 .baseUrl(BaseApplication.BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create())
+                .addConverterFactory(FastJsonConverterFactory.create())
                 .client(initClient())
                 .build()
     }

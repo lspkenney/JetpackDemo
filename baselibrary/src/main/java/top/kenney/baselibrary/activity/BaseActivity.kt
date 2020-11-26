@@ -15,10 +15,10 @@ abstract class BaseActivity:AppCompatActivity() {
     lateinit var loadingPopup: LoadingPopupView
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setLayoutContent()
+        setLayoutContent(savedInstanceState)
     }
 
-    open fun setLayoutContent(){
+    open fun setLayoutContent(savedInstanceState: Bundle?){
         setContentView(getLayoutId())
         initImmersionBar()
         initPopupView()

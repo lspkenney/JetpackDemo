@@ -6,6 +6,9 @@ import top.kenney.baselibrary.BaseApplication
 import top.kenney.mvvmdemo.BuildConfig
 import top.kenney.mvvmdemo.koin.appModule
 class MyApp:BaseApplication() {
+    override fun initBuglyAppId(): String {
+        return  ""
+    }
 
     override fun initBaseUrl(): String {
         return BuildConfig.baseUrl
